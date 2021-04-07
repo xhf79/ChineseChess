@@ -79,12 +79,12 @@ public class ChessBoardMain extends JFrame {
 	volatile boolean[] android=new boolean[]{false,false};
 	int begin=-1;
 	int end=0;
-	private static ComputerLevel computerLevel=ComputerLevel.greenHand; //默认
+	private static ComputerLevel computerLevel=ComputerLevel.greenHand; //默认 enum Computerlevel.greenHand(6,4) depth=6 time = 4 seconds
 	boolean isBackstageThink=false;
 	boolean computeFig=false;
 	TranspositionTable  transTable;
 	ChessMovePlay cmp=null; 
-	AICoreHandler _AIThink=new AICoreHandler(); //没有找到AICoreHandler的来源 2020-04-07
+	AICoreHandler _AIThink=new AICoreHandler(); //没有找到AICoreHandler的来源 2020-04-07 已经找到
 	AICoreHandler backstageAIThink=new AICoreHandler();
 //	public static List<MoveNode> backMove=new ArrayList<MoveNode>();
 	NodeLink moveHistory;
