@@ -762,10 +762,10 @@ public class ChessBoardMain extends JFrame {
 			new SoundEffect(type).start();
 		}
 	}
-	private static final String movePathPath="/sounds/MOVE.WAV";
-	private static final String checkedPath="/sounds/CHECKED.WAV";
-	private static final String capturePath="/sounds/CAPTURE.WAV";
-	private static final String lossPath="/sounds/LOSS.WAV";
+	private static final String movePathPath="/sounds/MOVE.WAV";  //走子，但是没有吃子
+	private static final String checkedPath="/sounds/CHECKED.WAV"; //将军
+	private static final String capturePath="/sounds/CAPTURE.WAV"; //吃子
+	private static final String lossPath="/sounds/LOSS.WAV"; //输棋
 	private static final URL MOVEPATHURL = ChessBoardMain.class.getResource(movePathPath);
 	private static final URL CHECKEDURL = ChessBoardMain.class.getResource(checkedPath);
 	private static final URL CAPTUREURL = ChessBoardMain.class.getResource(capturePath);
