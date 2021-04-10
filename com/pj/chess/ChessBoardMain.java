@@ -181,6 +181,7 @@ public class ChessBoardMain extends JFrame {
 		}
 		this.add(jpanelContent,BorderLayout.CENTER);
 	}
+	//JFrame上的茶杯图标是怎么来的？images文件夹里没有这张图片，难道是.Ds_Store文件设置的，可是我用的是windows系统。2021-04-10
 	public ChessBoardMain() {
 		super("中国象棋");  
 		setCenter();
