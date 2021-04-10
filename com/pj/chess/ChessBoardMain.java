@@ -310,7 +310,7 @@ public class ChessBoardMain extends JFrame {
 		}
 	}
 	public  void initBoardRelation(int destSite,int chess){
-		
+		//这个函数没有用到。2021-04-10
 		chessParamCont.board[destSite]=chess;
 		chessParamCont.allChess[chess]=destSite;
 		
