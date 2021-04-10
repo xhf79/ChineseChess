@@ -121,6 +121,7 @@ public class ChessBoardMain extends JFrame {
 		cmp=new ChessMovePlay(chessParamCont,transTable,new EvaluateComputeMiddleGame(chessParamCont));
 	}
 	JPanel jpanelContent;
+	//没搞懂后面设置北、南、东、西那些Jpanel有什么意义？2021-04-10
 	private void setCenter(){
 		if(jpanelContent!=null){
 			this.remove(jpanelContent);
