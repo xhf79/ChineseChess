@@ -60,21 +60,21 @@ public class Tools {
 		
 		Map<Object,Integer> m=new HashMap<Object,Integer>();
 		{
-			m.put('k',16); //Íõ
-			m.put('r',17); //³µ
-			m.put('n',19); //Âí
-			m.put('b',23); //Ïó
-			m.put('a',25); //Ê¿
-			m.put('c',21); //ÅÚ
-			m.put('p',27); //×ä
+			m.put('k',16); //ç‹
+			m.put('r',17); //è½¦
+			m.put('n',19); //é©¬
+			m.put('b',23); //è±¡
+			m.put('a',25); //å£«
+			m.put('c',21); //ç‚®
+			m.put('p',27); //å’
 			//=============================================================
-			m.put('K',32); //Íõ
-			m.put('R',33); //³µ
-			m.put('N',35); //Âí
-			m.put('B',39); //Ïó
-			m.put('A',41); //Ê¿
-			m.put('C',37); //ÅÚ
-			m.put('P',43); //×ä
+			m.put('K',32); //ç‹
+			m.put('R',33); //è½¦
+			m.put('N',35); //é©¬
+			m.put('B',39); //è±¡
+			m.put('A',41); //å£«
+			m.put('C',37); //ç‚®
+			m.put('P',43); //å’
 		}
 		
 		int[] board=new int[90];
@@ -147,7 +147,7 @@ public class Tools {
 	}
 	
 	
-
+        //è¿™ä¸ªå‡½æ•°æ²¡æœ‰å’Œç”¨åˆ° 2020-04-12
 	public static void writeToFile(String fen){
 		java.io.BufferedOutputStream buff=null;
 		try {
@@ -231,7 +231,7 @@ public class Tools {
 			}
 		}
 	}
-	//¼ÓÔØ¿ª¾Ö¿â
+	//åŠ è½½å¼€å±€åº“ è¿™ä¸ªå‡½æ•°ä¹Ÿæ²¡ç”¨åˆ° 2020-04-12
 		private static void loadBook(){
 						
 			String path="D://book.txt";
@@ -261,10 +261,10 @@ public class Tools {
 					String destSite = moveSite.substring(2,4);
 					 
 					int play=0;
-					if(fenArray[2].equalsIgnoreCase("b")){ //ºÚ·½
+					if(fenArray[2].equalsIgnoreCase("b")){ //é»‘æ–¹
 						play=BLACKPLAYSIGN;
 						b++;
-					}else{ //ºì·½
+					}else{ //çº¢æ–¹
 						play=REDPLAYSIGN;
 						r++;
 					}
@@ -332,17 +332,17 @@ public class Tools {
 		}
 
 	public static void printBitBoard(ChessParam chessParam){
-//		System.out.println("===========È«¾Ö===========");
+//		System.out.println("===========å…¨å±€===========");
 //		System.out.println(chessParam.maskBoardChesses);
-//		System.out.println("===========ºì·½===========");
+//		System.out.println("===========çº¢æ–¹===========");
 //		System.out.println(chessParam.maskBoardPersonalChesses[REDPLAYSIGN]);
-//		System.out.println("===========ºÚ·½===========");
+//		System.out.println("===========é»‘æ–¹===========");
 //		System.out.println(chessParam.maskBoardPersonalChesses[BLACKPLAYSIGN]);
 		BitBoard bitBoard = new BitBoard();
 		for(int i=0;i<chessParam.maskBoardPersonalRoleChesses.length;i++){
 			bitBoard.assignXor(chessParam.maskBoardPersonalRoleChesses[i]);
 		}
-		System.out.println("===========¸÷½ÇÉ«Æå×Ó×éºÏÒ»Æğ===========");
+		System.out.println("===========å„è§’è‰²æ£‹å­ç»„åˆä¸€èµ·===========");
 		System.out.println(bitBoard);
 	}
 	
