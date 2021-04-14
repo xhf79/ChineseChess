@@ -485,7 +485,7 @@ public class ChessBoardMain extends JFrame {
 	public void gameOverMsg(String msg){
 		if (JOptionPane.showConfirmDialog(this, msg + "是否继续？", "信息",
 				 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-			dispose();
+			dispose(); //dispose这个函数来自哪里？2021-04-14
 			new ChessBoardMain();
 		} else{
 			dispose();
