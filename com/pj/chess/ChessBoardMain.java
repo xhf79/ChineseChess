@@ -239,6 +239,7 @@ public class ChessBoardMain extends JFrame {
 		mi_10.addActionListener(menuItemAction);
 		mi_11.addActionListener(menuItemAction);
 		
+		//设置热键Alt+字母,所以下面只有'0'是有效的 2021-04-15
 		create.setMnemonic(10);
 		mi_6.setMnemonic(2);
 		mi_7.setMnemonic(3);
@@ -501,24 +502,24 @@ public class ChessBoardMain extends JFrame {
 	private boolean checkGameOver(){
 		boolean isGameOver=false;
 		String msg=null;
-		if(moveHistory==null || moveHistory.getMoveNode()==null){
+		if(moveHistory==null || moveHistory.getMoveNode()==null){ //这种情况判断胜负？应该不会出现吧 2021-04-15
 			msg=(play==BLACKPLAYSIGN?"黑方":"红方")+"被残忍的将死！";
 			isGameOver=true;
-		//自己帅被吃
+		//自己帅被吃 也就说只有至少一方是人类在下棋，并且是从类方输了，才会有 黑方被完虐 红方被完虐 这种结束语。
 		}else if(chessParamCont.allChess[chessPlay[BLACKPLAYSIGN]]==NOTHING || moveHistory.getMoveNode().destChess==chessPlay[BLACKPLAYSIGN]){
 			isGameOver=true;
 			msg="黑方被完虐！";
 		}else if(chessParamCont.allChess[chessPlay[REDPLAYSIGN]]==NOTHING || moveHistory.getMoveNode().destChess==chessPlay[REDPLAYSIGN]){
 			msg="红方被完虐！";
 			isGameOver=true; 
-		}else if(moveHistory.getMoveNode().score==-LONGCHECKSCORE){
+		}else if(moveHistory.getMoveNode().score==-LONGCHECKSCORE){ //这个只对AI限制？2021-04-15
 			msg=(play==BLACKPLAYSIGN?"黑方":"红方")+"长将判负！";
 			isGameOver=true;
 		}else if(moveHistory.getMoveNode().score<=-(maxScore-2)){
 			setCheckedLOSS(play);
 			msg=(play==BLACKPLAYSIGN?"黑方":"红方")+"被残忍的将死！";
 			isGameOver=true;
-		}else if(moveHistory.getMoveNode().score>=(maxScore-2)){
+		}else if(moveHistory.getMoveNode().score>=(maxScore-2)){//至少有一方是电脑在下棋，并且电脑方赢了的情况下。
 			setCheckedLOSS(1-play);
 			msg=(play==BLACKPLAYSIGN?"黑方":"红方")+"赢得了最终的胜利！";
 			isGameOver=true;
@@ -739,7 +740,7 @@ public class ChessBoardMain extends JFrame {
 						}
 					}
 				} else {
-					chessFile.deleteOnExit();
+					chessFile.deleteOnExit();//如果不使用存档，则删除chess.txt文件。有点残忍. 2020-04-15
 					fen="c6c5  rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR b - - 0 1";
 				}
 			}
