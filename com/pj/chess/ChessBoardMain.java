@@ -487,6 +487,7 @@ public class ChessBoardMain extends JFrame {
 		if (JOptionPane.showConfirmDialog(this, msg + "是否继续？", "信息",
 				 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			dispose(); //dispose这个函数来自哪里？2021-04-14
+                        //继承自JFrame的，表示释放窗口资源。2021-04-16
 			new ChessBoardMain();
 		} else{
 			dispose();
