@@ -121,7 +121,7 @@ public class ChessBoardMain extends JFrame {
 		cmp=new ChessMovePlay(chessParamCont,transTable,new EvaluateComputeMiddleGame(chessParamCont));
 	}
 	JPanel jpanelContent;
-	//没搞懂后面设置北、南、东、西那些Jpanel有什么意义？2021-04-10
+	//没搞懂后面设置北、南、东、西那些Jpanel有什么意义？2021-04-10 清楚了 2021-04-17
 	private void setCenter(){
 		if(jpanelContent!=null){
 			this.remove(jpanelContent);
@@ -182,8 +182,10 @@ public class ChessBoardMain extends JFrame {
 		this.add(jpanelContent,BorderLayout.CENTER);
 	}
 	//JFrame上的茶杯图标是怎么来的？images文件夹里没有这张图片，难道是.Ds_Store文件设置的，可是我用的是windows系统。2021-04-10
+        //系统自带的图标，可以自已修改。2021-04-17
 	public ChessBoardMain() {
 		super("中国象棋");  
+		//this.setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage()); //修改图标
 		setCenter();
 		
 		JPanel constrol=new JPanel();
