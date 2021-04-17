@@ -744,6 +744,7 @@ public class ChessBoardMain extends JFrame {
 					}
 				} else {
 					chessFile.deleteOnExit();//如果不使用存档，则删除chess.txt文件。有点残忍. 2020-04-15
+                                        //上面理解有误，这个else是对应if(fen!=null)的，但是一次没读取记录，关闭程序后，再次使用，就没有这个文件了。2021-04-17
 					fen="c6c5  rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR b - - 0 1";
 				}
 			}
