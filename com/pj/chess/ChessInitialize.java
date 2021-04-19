@@ -15,12 +15,12 @@ import static com.pj.chess.Tools.*;
 //import java.io.ObjectOutputStream;
 //import java.util.Random;
 
-import com.pj.chess.chessmove.ChessMovePlay;
-import com.pj.chess.chessmove.ChessQuiescMove;
-import com.pj.chess.chessmove.MoveNode;
+//import com.pj.chess.chessmove.ChessMovePlay;
+//import com.pj.chess.chessmove.ChessQuiescMove;
+//import com.pj.chess.chessmove.MoveNode;
 import com.pj.chess.chessparam.ChessParam;
-import com.pj.chess.evaluate.EvaluateCompute;
-import com.pj.chess.evaluate.EvaluateComputeMiddle;
+//import com.pj.chess.evaluate.EvaluateCompute;
+//import com.pj.chess.evaluate.EvaluateComputeMiddle;
 import com.pj.chess.zobrist.TranspositionTable;
 import static com.pj.chess.chessmove.ChessQuiescMove.*;
 /**
