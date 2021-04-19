@@ -6,9 +6,9 @@ import static com.pj.chess.ChessConstant.boardCol;
 import static com.pj.chess.ChessConstant.boardRow;
 //import static com.pj.chess.ChessConstant.chessRoles;
 
-import com.pj.chess.ChessBoardMain;
-import com.pj.chess.ChessConstant;
-import com.pj.chess.history.CHistoryHeuritic;
+//import com.pj.chess.ChessBoardMain;
+import com.pj.chess.ChessConstant; //实际上只用一个参数 NOTHING
+//import  com.pj.chess.history.CHistoryHeuritic;
 
 public class MoveNode implements java.io.Serializable{
 	public int destChess;
