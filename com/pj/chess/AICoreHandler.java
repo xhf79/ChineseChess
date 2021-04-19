@@ -70,7 +70,7 @@ public class AICoreHandler {
 		this.chessParam=new ChessParam(chessParam); 
 		seEngine = searchEngineFactory(PRINCIPALVARIATIONTYPE);
 	}
-	public void guessRun(MoveNode guessMoveNode){ 
+	public void guessRun(MoveNode guessMoveNode){ //这个函数哪里用到？2021-04-19
 		seEngine.chessMove.moveOperate(guessMoveNode);
 		this.run(true);
 		seEngine.chessMove.unMoveOperate(guessMoveNode);
@@ -129,7 +129,7 @@ public class AICoreHandler {
 		
 	}
 	
-	public void moveBegin(){	
+	public void moveBegin(){//这个函数哪里用到？2021-04-19	
 		//卒随着攻击子力的减少他的价值上升
 		EvaluateCompute.chessBaseScore[27]=EvaluateCompute.chessBaseScore[28]=EvaluateCompute.chessBaseScore[29]=EvaluateCompute.chessBaseScore[30]=EvaluateCompute.chessBaseScore[31]=(EvaluateCompute.SOLDIERSCORE+(11-chessParam.getAttackChessesNum(BLACKPLAYSIGN))*8);                                                                                                                                                                                                     
 		EvaluateCompute.chessBaseScore[43]=EvaluateCompute.chessBaseScore[44]=EvaluateCompute.chessBaseScore[45]=EvaluateCompute.chessBaseScore[46]=EvaluateCompute.chessBaseScore[47]=(EvaluateCompute.SOLDIERSCORE+(11-chessParam.getAttackChessesNum(REDPLAYSIGN))*8);	
@@ -140,7 +140,7 @@ public class AICoreHandler {
 		EvaluateCompute.chessBaseScore[21]=EvaluateCompute.chessBaseScore[22]=EvaluateCompute.chessBaseScore[37]=EvaluateCompute.chessBaseScore[38]=(EvaluateCompute.GUNSCORE-(32-chessParam.getAllChessesNum())*6);
 		
 	}
-	public void moveEnd(){
+	public void moveEnd(){//这个函数哪里用到？2021-04-19	
 		for(int i=0;i<CHistoryHeuritic.cHistory.length;i++){
 			for(int j=0;j<CHistoryHeuritic.cHistory[i].length;j++){
 					CHistoryHeuritic.cHistory[i][j]/=512;
