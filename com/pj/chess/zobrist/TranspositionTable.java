@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.pj.chess.NodeLink;
-import com.pj.chess.Tools;
+//import com.pj.chess.NodeLink;
+//import com.pj.chess.Tools;
 import com.pj.chess.chessmove.MoveNode;
 import com.pj.chess.movelist.MoveNodeList;
 
 public class TranspositionTable {
 	public static Map<Object,List<MoveNode>> fenLib=new HashMap<Object,List<MoveNode>>();
-	//1 Ò»Ö±¸²¸Ç  0Éî¶È¸²¸Ç
+	//1 ä¸€ç›´è¦†ç›–  0æ·±åº¦è¦†ç›–
 	private static final int OVERRIDESTRAIGHT=1, OVERRIDESTEP=0;
 	
 	public  static long boardZobristStatic64;
@@ -38,7 +38,7 @@ public class TranspositionTable {
 	public static final int hashPV = 3;
 	
 	public static final int FAIL=Integer.MIN_VALUE+1;
-	//ÃüÖĞ¿ª¾Ö¿â
+	//å‘½ä¸­å¼€å±€åº“
 	public static final int FEN=Integer.MIN_VALUE;
 	static{
 		InitZobristList32And64.initChessZobristList32();
@@ -62,7 +62,7 @@ public class TranspositionTable {
 		tranZobrist=new HashItem[2][TRANZOBRISTSIZE][2];
 	}
 	/**
-	 * ÉèÖÃÉÏ´ÎµÄÖÃ»»±íÎª¹ıÆÚÊı¾İ
+	 * è®¾ç½®ä¸Šæ¬¡çš„ç½®æ¢è¡¨ä¸ºè¿‡æœŸæ•°æ®
 	 */
 	public static void cleanTranZobrist() {
 		for (int i = 0; i < TRANZOBRISTSIZE; i++) {
@@ -78,7 +78,7 @@ public class TranspositionTable {
 	}
 
 	/**
-	 * Éú³Éµ±Ç°¾ÖÃæ
+	 * ç”Ÿæˆå½“å‰å±€é¢
 	 */
 	public static void genStaticZobrist32And64OfAllChess(int allChess[]) {
 		for (int i = 0; i < allChess.length; i++) {
@@ -89,7 +89,7 @@ public class TranspositionTable {
 			}
 		}
 	}
-	/********************¾²Ì¬µÄ¾ÖÃæ****************************/
+	/********************é™æ€çš„å±€é¢****************************/
 	public static void genStaticZobrist32And64OfBoard(int board[]) {
 		for (int i = 0; i < board.length; i++) {
 			if (board[i] > NOTHING) {
@@ -130,7 +130,7 @@ public class TranspositionTable {
 		boardZobrist32=boardZobristStatic32;
 	}
 	/**
-	 * ÖÃ»»±íkey¸Ä±ä
+	 * ç½®æ¢è¡¨keyæ”¹å˜
 	 */
 	public  void moveOperate(MoveNode moveNode) {
 		
@@ -151,7 +151,7 @@ public class TranspositionTable {
 	}
 
 	/**
-	 * ÖÃ»»±íkey¸Ä±ä
+	 * ç½®æ¢è¡¨keyæ”¹å˜
 	 */
 	public  void unMoveOperate(MoveNode moveNode) {
 		int srcSite = moveNode.destSite;
@@ -194,14 +194,14 @@ public class TranspositionTable {
 	}
 	private static final Object lock=new Object();
 	/**
-	 * Éî¶ÈÓÅÏÈ Ê¼ÖÕ¸²¸Ç¹ıÆÚÊı¾İ
+	 * æ·±åº¦ä¼˜å…ˆ å§‹ç»ˆè¦†ç›–è¿‡æœŸæ•°æ®
 	 */
 	/*public void setTranZobrist(int boardZobrist32, long boardZobrist64,
 			int entry_type, int value, int depth, int play, MoveNode moveNode,
 			int[] board, NodeLink nodeLink) {
 		int x = boardZobrist32 & TRANZOBRISTSIZE;
 		HashItem hi = tranZobrist[x];
-		//Éî¶ÈĞ¡ÓÚµÈÓÚÏÖÔÚÉî¶È
+		//æ·±åº¦å°äºç­‰äºç°åœ¨æ·±åº¦
 		if (hi == null || depth <= hi.depth)
 			return;
 		hi = new HashItem();
@@ -221,34 +221,34 @@ public class TranspositionTable {
 			int value=hi.value; 
 			tranGodMoveNode=hi.moveNode;
 			if(value>mateNode){
-				//ÊÇ·ñ½«¾ü½Úµã
+				//æ˜¯å¦å°†å†›èŠ‚ç‚¹
 				value-=(depth-hi.depth);
 			}else if(value<-mateNode){
 				value+=(depth-hi.depth);
 			}else if(hi.depth < depth){
-				//µ±ÊÇÇ³²ãµÄ½ÚµãÊ±·µ»ØÇ³²ãµÄ×î¼Ñ×ß·¨
+				//å½“æ˜¯æµ…å±‚çš„èŠ‚ç‚¹æ—¶è¿”å›æµ…å±‚çš„æœ€ä½³èµ°æ³•
 				return FAIL;
 			}
-			String[] alterEntry=new String[]{"","ÉÏ±ß½ç","ÏÂ±ß½ç","¾«È·Öµ"};
-			System.out.println("========================µ±´ÎÒª±È½ÏÊı¾İ===========================");
+			String[] alterEntry=new String[]{"","ä¸Šè¾¹ç•Œ","ä¸‹è¾¹ç•Œ","ç²¾ç¡®å€¼"};
+			System.out.println("========================å½“æ¬¡è¦æ¯”è¾ƒæ•°æ®===========================");
 			for(MoveNode movenode:moveLists){
-				System.out.println("\t\tÔ­Î»ÖÃ:"+bitBoardRow[movenode.srcSite]+"ĞĞ"+bitBoardCol[movenode.srcSite]+"ÁĞ  Ô­Æå×Ó£º"+chessName[movenode.srcChess] +"\tÄ¿±êÎ»ÖÃ£º"+bitBoardRow[movenode.destSite]+"ĞĞ  "+bitBoardCol[movenode.destSite] +"ÁĞ  Ä¿±êÆå×Ó"+chessName[movenode.destChess]);
+				System.out.println("\t\tåŸä½ç½®:"+bitBoardRow[movenode.srcSite]+"è¡Œ"+bitBoardCol[movenode.srcSite]+"åˆ—  åŸæ£‹å­ï¼š"+chessName[movenode.srcChess] +"\tç›®æ ‡ä½ç½®ï¼š"+bitBoardRow[movenode.destSite]+"è¡Œ  "+bitBoardCol[movenode.destSite] +"åˆ—  ç›®æ ‡æ£‹å­"+chessName[movenode.destChess]);
 			}
-			System.out.println("========================ÖÃ»»±íÖĞÊı¾İ  ("+alterEntry[hi.entry_type]+")=========================");
+			System.out.println("========================ç½®æ¢è¡¨ä¸­æ•°æ®  ("+alterEntry[hi.entry_type]+")=========================");
 			for(MoveNode movenode:hi.moveNodes){
-				System.out.println("\t\tÔ­Î»ÖÃ:"+bitBoardRow[movenode.srcSite]+"ĞĞ"+bitBoardCol[movenode.srcSite]+"ÁĞ  Ô­Æå×Ó£º"+chessName[movenode.srcChess] +"\tÄ¿±êÎ»ÖÃ£º"+bitBoardRow[movenode.destSite]+"ĞĞ  "+bitBoardCol[movenode.destSite] +"ÁĞ  Ä¿±êÆå×Ó"+chessName[movenode.destChess]);
+				System.out.println("\t\tåŸä½ç½®:"+bitBoardRow[movenode.srcSite]+"è¡Œ"+bitBoardCol[movenode.srcSite]+"åˆ—  åŸæ£‹å­ï¼š"+chessName[movenode.srcChess] +"\tç›®æ ‡ä½ç½®ï¼š"+bitBoardRow[movenode.destSite]+"è¡Œ  "+bitBoardCol[movenode.destSite] +"åˆ—  ç›®æ ‡æ£‹å­"+chessName[movenode.destChess]);
 			}
 			switch (hi.entry_type) {
-			// ¾«È·Öµ
+			// ç²¾ç¡®å€¼
 			case EXACT:
 				return value;
-				// ÏÂ±ß½ç(ÒòÎªÊÇ¼ôÖ¦µÄ½á¹ûËùÒÔÖ»Òªµ±Ç°ÖÃ»»±íÖĞµÄÖµ´óÓÚµ±Ç°µÄ¼ôÖ¦Ìõ¼ş (>beta) )
+				// ä¸‹è¾¹ç•Œ(å› ä¸ºæ˜¯å‰ªæçš„ç»“æœæ‰€ä»¥åªè¦å½“å‰ç½®æ¢è¡¨ä¸­çš„å€¼å¤§äºå½“å‰çš„å‰ªææ¡ä»¶ (>beta) )
 			case LOWER_BOUND:
 				if (value>= beta) {
 					return value;
 				}
 				break;
-			// ÉÏ±ß½ç
+			// ä¸Šè¾¹ç•Œ
 			case UPPER_BOUND:
 				if (value <= alpha) {
 					return value;
@@ -259,7 +259,7 @@ public class TranspositionTable {
 		return FAIL;
 	}*/
 	/*
-	 * Ê¹ÖÕ¸²¸Ç²ßÂÔ
+	 * ä½¿ç»ˆè¦†ç›–ç­–ç•¥
 	 */
 	public boolean setTranZobristOverride(int entry_type, int value, int depth, int play, MoveNode moveNode,int x,HashItem hi0){
 		if(hi0!=null){
@@ -282,19 +282,19 @@ public class TranspositionTable {
 		return true;
 	}
 	/*
-	 * Éî¶È¸²¸Ç²ßÂÔ
+	 * æ·±åº¦è¦†ç›–ç­–ç•¥
 	 */
 	public HashItem setTranZobristOverrideByStep(int entry_type, int value, int depth, int play, MoveNode moveNode,int x){
 		HashItem hi1=null; 
 		HashItem hi0 = tranZobrist[play][x][OVERRIDESTEP];
 		if (hi0==null){
 			hi0 = new HashItem();
-		}else if(hi0.isExists){ //Îª×îĞÂ½Úµã
-			//±ÈÖ®Ç°´æ´¢µÄ½ÚµãĞ¡Ö±½Ó·µ»Ø
+		}else if(hi0.isExists){ //ä¸ºæœ€æ–°èŠ‚ç‚¹
+			//æ¯”ä¹‹å‰å­˜å‚¨çš„èŠ‚ç‚¹å°ç›´æ¥è¿”å›
 			if(hi0.depth>depth){
 				return null;
 			}
-			else{ //±ÈÖ®Ç°´æ´¢µÄ½Úµã´ó£¬±£´æµ±Ç°£¬½«Ö®Ç°½Úµã·µ»Ø¸øÊ¼ÖÕ¸²¸Ç²ßÂÔ
+			else{ //æ¯”ä¹‹å‰å­˜å‚¨çš„èŠ‚ç‚¹å¤§ï¼Œä¿å­˜å½“å‰ï¼Œå°†ä¹‹å‰èŠ‚ç‚¹è¿”å›ç»™å§‹ç»ˆè¦†ç›–ç­–ç•¥
 				hi1=hi0;
 				hi0 = new HashItem();
 			}
@@ -314,23 +314,23 @@ public class TranspositionTable {
 		return hi1;
 	}
 	/*
-	 * ´æ´¢ÖÃ»»±í
+	 * å­˜å‚¨ç½®æ¢è¡¨
 	 */
 	public void setTranZobrist(int entry_type, int value, int depth, int play, MoveNode moveNode) {
-		if((value>=8000 && value<=9000) || (value>=-9000 && value<=-8000)){ //³¤½«²»´æ
+		if((value>=8000 && value<=9000) || (value>=-9000 && value<=-8000)){ //é•¿å°†ä¸å­˜
 			return;
 		}
 		int x = boardZobrist32 & TRANZOBRISTSIZE;
 		HashItem hi0 = this.setTranZobristOverrideByStep(entry_type, value, depth, play, moveNode,x);
-		//Éî¶È²ßÂÔÖĞÃ»ÓĞ±»¸²¸Ç
+		//æ·±åº¦ç­–ç•¥ä¸­æ²¡æœ‰è¢«è¦†ç›–
 //		if(hi0!=null){
-			//Ö´ĞĞÊ¹ÖÕ¸²¸Ç
+			//æ‰§è¡Œä½¿ç»ˆè¦†ç›–
 		this.setTranZobristOverride(entry_type, value, depth, play, moveNode,x,hi0);
 //		}
 	}
 	int  mateNode=maxScore-100;
 	/*
-	 * ´ÓÖÃ»»±í»ñÈ¡
+	 * ä»ç½®æ¢è¡¨è·å–
 	 */
 	public int getTranZobrist(int alpha, int beta, int depth,int play, MoveNodeList tranGodMoveNode,int[] value) {
 		int x = boardZobrist32 &TRANZOBRISTSIZE;
@@ -361,26 +361,26 @@ public class TranspositionTable {
 	public int getTranZobristByHashItem(HashItem hi,int depth,int alpha,int beta){
 		int value = hi.value;
 		if (value > mateNode) {
-			// ÊÇ·ñ½«¾ü½Úµã
+			// æ˜¯å¦å°†å†›èŠ‚ç‚¹
 			value -= (depth - hi.depth);
 		} else if (value < -mateNode) {
 			value += (depth - hi.depth);
 		} 
 		else if (hi.depth < depth) {
-			// µ±ÊÇÇ³²ãµÄ½ÚµãÊ±·µ»ØÇ³²ãµÄ×î¼Ñ×ß·¨
+			// å½“æ˜¯æµ…å±‚çš„èŠ‚ç‚¹æ—¶è¿”å›æµ…å±‚çš„æœ€ä½³èµ°æ³•
 			return FAIL;
 		}
 		switch (hi.entry_type) {
-		// ¾«È·Öµ
+		// ç²¾ç¡®å€¼
 		case hashPV:
 			return value;
-			// ÏÂ±ß½ç(ÒòÎªÊÇ¼ôÖ¦µÄ½á¹ûËùÒÔÖ»Òªµ±Ç°ÖÃ»»±íÖĞµÄÖµ´óÓÚµ±Ç°µÄ¼ôÖ¦Ìõ¼ş (>beta) )
+			// ä¸‹è¾¹ç•Œ(å› ä¸ºæ˜¯å‰ªæçš„ç»“æœæ‰€ä»¥åªè¦å½“å‰ç½®æ¢è¡¨ä¸­çš„å€¼å¤§äºå½“å‰çš„å‰ªææ¡ä»¶ (>beta) )
 		case hashBeta:
 			if (value >= beta) {
 				return value;
 			}
 			break;
-		// ÉÏ±ß½ç
+		// ä¸Šè¾¹ç•Œ
 		case hashAlpha:
 			if (value <= alpha) {
 				return value;
@@ -390,7 +390,7 @@ public class TranspositionTable {
 		return FAIL;
 	}
 	/*
-	 * »ñÈ¡Éî¶È¸²¸ÇÖĞµÄÖµ
+	 * è·å–æ·±åº¦è¦†ç›–ä¸­çš„å€¼
 	 */
 	public HashItem getTranZobristOverrideByStep(int play,int x){
 		HashItem hashItem0 = tranZobrist[play][x][OVERRIDESTEP];
@@ -401,7 +401,7 @@ public class TranspositionTable {
 		}
 	}
 	/*
-	 * »ñÈ¡Ê¹ÖÕ¸²¸ÇÖĞµÄÖµ
+	 * è·å–ä½¿ç»ˆè¦†ç›–ä¸­çš„å€¼
 	 */
 	public HashItem getTranZobristOverride(int play,int x){
 		HashItem hashItem1 = tranZobrist[play][x][OVERRIDESTRAIGHT];
@@ -419,7 +419,7 @@ public class TranspositionTable {
 		moveNodeList.add(moveNode);
 		fenLib.put(boardZobrist64,moveNodeList);
 	}
-	//¿ª¾Ö¿âÊÇ·ñÓĞÕâ¸ö×ß·¨
+	//å¼€å±€åº“æ˜¯å¦æœ‰è¿™ä¸ªèµ°æ³•
 	public static MoveNode getTranZobristFen(int play) {
 		List<MoveNode> moveNodeList = fenLib.get(boardZobristStatic64);
 		if (moveNodeList != null) {
