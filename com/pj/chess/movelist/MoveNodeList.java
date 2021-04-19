@@ -1,7 +1,7 @@
 package com.pj.chess.movelist;
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 import com.pj.chess.chessmove.MoveNode;
 
