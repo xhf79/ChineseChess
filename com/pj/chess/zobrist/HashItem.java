@@ -1,25 +1,25 @@
 package com.pj.chess.zobrist;
 
-import java.util.List;
+//import java.util.List;
 
 import com.pj.chess.chessmove.MoveNode;
 
 public class HashItem {
-	//Ğ£ÑéºÍ
+	//æ ¡éªŒå’Œ
 	public long checkSum;
-	//hashÀàĞÍ  ÉÏ±ß½ç  ÏÂ±ß½ç  ¾«È·Öµ
+	//hashç±»å‹  ä¸Šè¾¹ç•Œ  ä¸‹è¾¹ç•Œ  ç²¾ç¡®å€¼
 	public int entry_type;
-	//Öµ
+	//å€¼
 	public int value;
-	//²½Êı
+	//æ­¥æ•°
 	public int depth; 
 	
 	public MoveNode moveNode;
-	//ÊÇ·ñ¹ıÆÚÊı¾İ
+	//æ˜¯å¦è¿‡æœŸæ•°æ®
 	public boolean isExists=true;
 	
 //	public boolean isCheckMate=false;
-	//ÊÇ·ñÎª¿ª¾Ö¿âÖĞµÄÊı¾İ
+	//æ˜¯å¦ä¸ºå¼€å±€åº“ä¸­çš„æ•°æ®
 //	public boolean isFEN=false;
 //	public short moveNum=0;
 //	public int play;
