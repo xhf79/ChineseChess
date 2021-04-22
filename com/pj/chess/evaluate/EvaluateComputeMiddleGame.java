@@ -9,17 +9,17 @@ import com.pj.chess.chessmove.ChessQuiescMove;
 import com.pj.chess.chessparam.ChessParam;
 
 public class EvaluateComputeMiddleGame extends EvaluateCompute {
-	//Ã¿¸öÆå×Ó»ú¶¯ĞÔ³Í·£
+	//æ¯ä¸ªæ£‹å­æœºåŠ¨æ€§æƒ©ç½š
 	public   final int[] chessMobilityRewards  =new int[]{ 
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	    //½«³µ   Âí     ÅÚ
+	    //å°†è½¦   é©¬     ç‚®
 		50,5,5,12,12,2,2,0,0,0,0,0,0,0,0,0,
 		50,5,5,12,12,2,2,0,0,0,0,0,0,0,0,0
 	};
-	//Ã¿¸öÆå×Ó×îµÍ»ú¶¯ĞÔÒªÇó(µÍÓÚ´ËÖµÒª·£)
+	//æ¯ä¸ªæ£‹å­æœ€ä½æœºåŠ¨æ€§è¦æ±‚(ä½äºæ­¤å€¼è¦ç½š)
 	public static  final int[] chessMinMobility  =new int[]{ 
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	  //½«³µ   Âí     ÅÚ
+	  //å°†è½¦   é©¬     ç‚®
 		1,19,19,8,8,19,19,0,0,0,0,0,0,0,0,0,
 		1,19,19,8,8,19,19,0,0,0,0,0,0,0,0,0
 	}; 
@@ -32,6 +32,14 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 	BitBoard[] bitBoardMove=new BitBoard[2];
 	int[][] attackPartition=new int[2][3];
 	int[][] defensePartition=new int[2][3];
+	// 2021-04-23æ•´ç†
+        // score = åŸºç¡€åˆ† + åŒºåŸŸåˆ†
+	//         åŸºç¡€åˆ† = åŸå§‹åˆ† + æœºåŠ¨åˆ†ï¼ˆèµç½šï¼‰
+	//                 åŒºåŸŸåˆ† = è‡ªå·±æ–¹åˆ†æ•° + å¯¹æ–¹åˆ†æ•° 
+	//                          è‡ªå·²æ–¹åˆ†æ•° = è‡ªå·±æ–¹è¿›æ”»åˆ† + è‡ªå·²æ–¹é˜²å®ˆåˆ†
+	//                                      è‡ªå·²æ–¹è¿›æ”»åˆ† = ç©ºå¤´ç‚®åŠ åˆ† + æ²‰åº•ç‚®åŠ åˆ† + éš”å­è½¦åŠ åˆ† + å°†ä½åç¦»åŠ åˆ† + åŒºåŸŸç»“åˆåŠ åˆ† + å…µç§åŠ åˆ†
+	//                                                                                        å°†ä½åç¦»åŠ åˆ† = ä¸åœ¨ä¸­çº¿ + ä¸åœ¨åº•çº¿
+	
 	public int evaluate(int play){ 
 		score[REDPLAYSIGN]=chessParam.baseScore[REDPLAYSIGN];
 		score[BLACKPLAYSIGN]=chessParam.baseScore[BLACKPLAYSIGN];
@@ -39,11 +47,11 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 		bitBoard[BLACKPLAYSIGN]= new BitBoard(chessParam.maskBoardPersonalChesses[BLACKPLAYSIGN]); 
 		bitBoardMove[REDPLAYSIGN]=new BitBoard();bitBoardMove[BLACKPLAYSIGN]=new BitBoard();
 		int currplay=0;
-		int[][] partitionScore=new int[2][7]; //°´ÇøÓò¼Æ·Ö
+		int[][] partitionScore=new int[2][7]; //æŒ‰åŒºåŸŸè®¡åˆ†
 		boolean[] kingUnMove=new boolean[]{false,false}; 
-		//¸ù¾İÄ¿Ç°´æ»îÆå×Ó¾ö¶¨ÆäÇøÓò·ÖÊı
+		//æ ¹æ®ç›®å‰å­˜æ´»æ£‹å­å†³å®šå…¶åŒºåŸŸåˆ†æ•°
 		this.dynamicCMPChessPartitionScore();
-		//µÃµ½ËùÓĞ×ÓÁ¦Í¼
+		//å¾—åˆ°æ‰€æœ‰å­åŠ›å›¾
 		for(int chess=16;chess<48;chess++){
 			if(chessParam.allChess[chess]!=NOTHING){
 				if(chess<32){
@@ -55,11 +63,11 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 				
 				BitBoard bAttack=chessAllMove(chessRoles[chess],chessParam.allChess[chess], currplay);
 //				if(!BitBoard.assignAndToNew(bAttack, bb).isEmpty()){
-					//ÇøÓò·ÖÊıÔËËã
+					//åŒºåŸŸåˆ†æ•°è¿ç®—
 					compPartitionScore(currplay,chessParam.allChess[chess], chess, partitionScore[currplay]);					
 //				}
 				bitBoardMove[currplay].assignOr(bAttack);
-				//ÓĞ»ú¶¯ĞÔ²ÎÊı
+				//æœ‰æœºåŠ¨æ€§å‚æ•°
 				if(chessMinMobility[chess]>0){ 
 					int mobility = this.chessMobility(chessRoles[chess], chessParam.allChess[chess],bitBoard[currplay]);
 					if(mobility<chessMinMobility[chess]){ 
@@ -73,7 +81,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 				}
 			}
 		} 
-		//¸ñÊ½»¯ÇøÓò
+		//æ ¼å¼åŒ–åŒºåŸŸ
 		trimPartitionScore(partitionScore, attackPartition, defensePartition);
 		
 		int oppPlayTemp,oppKingSite,proMainS,proDefenseS,attMains,attDefenseS;
@@ -87,24 +95,24 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 			oppAttackChessShape = this.getMainAttackChessesBitBoad(oppPlayTemp);
 			oppDefeneseChessShape = this.getDefenseChessesBitBoad(oppPlayTemp);
  
-			//±£»¤
+			//ä¿æŠ¤
 			score[i]+=BitBoard.assignAndToNew(bitBoardMove[i],attacChessShape).Count()*proMainS;
 			score[i]+=BitBoard.assignAndToNew(bitBoardMove[i],defenseChessShape).Count()*proDefenseS;
-			//¹¥»÷			
+			//æ”»å‡»			
 			score[i]+=BitBoard.assignAndToNew(bitBoardMove[i],oppAttackChessShape).Count()*attMains;
 			score[i]+=BitBoard.assignAndToNew(bitBoardMove[i],oppDefeneseChessShape).Count()*attDefenseS;
 			
 			int gunNum = chessParam.getChessesNum(i,ChessConstant.GUN);
-			//¶Ô·½½«ËùÔÚÎ»ÖÃ			
+			//å¯¹æ–¹å°†æ‰€åœ¨ä½ç½®			
 			oppKingSite = chessParam.allChess[chessPlay[oppPlayTemp]]; 
 			int row=chessParam.boardBitRow[boardRow[oppKingSite]];
 			int col=chessParam.boardBitCol[boardCol[oppKingSite]]; 
 			boolean weakness=false;
-			//¶ÔÊÖÆå×ÓÊıÁ¿
+			//å¯¹æ‰‹æ£‹å­æ•°é‡
 			int oppAllChessNum=chessParam.getAttackChessesNum(oppPlayTemp)+chessParam.getDefenseChessesNum(oppPlayTemp)-1;
 			
 			if(gunNum>0){
-				//¿ÕÍ·ÅÚ
+				//ç©ºå¤´ç‚®
 				int gunSite ;
 				if(oppAllChessNum>5 && (gunSite = this.exposedCannon(i, oppKingSite, row, col))!=-1){ 
 					int extend=boardRow[oppKingSite]-boardRow[gunSite];
@@ -113,7 +121,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 					score[i]+=extend*45;
 					weakness=true;
 				}
-				//³Áµ×ÅÚ
+				//æ²‰åº•ç‚®
 				gunSite=this.bottomCannon(i, oppKingSite, row, col);
 				if(gunSite!=-1){
 					int extend=boardRow[oppKingSite]-boardRow[gunSite];
@@ -126,11 +134,11 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 					
 				}
 			}
-			//¸ô×Ó³µ
+			//éš”å­è½¦
 			if(this.restChariot(i, oppKingSite, row, col)!=1){
 				score[i]+=30; 
 			}
-			//¶Ô·½½«²»ÄÜ¶¯²¢ÓĞµ×ÅÚ»ò¸ô×Ó³µÏûÈõÒ»È¦»¤¼×
+			//å¯¹æ–¹å°†ä¸èƒ½åŠ¨å¹¶æœ‰åº•ç‚®æˆ–éš”å­è½¦æ¶ˆå¼±ä¸€åœˆæŠ¤ç”²
 			if(weakness){ 
 				defensePartition[oppPlayTemp][RIGHTSITE]-=1;
 				defensePartition[oppPlayTemp][LEFTSITE]-=1;
@@ -146,27 +154,27 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 				defensePartition[oppPlayTemp][MIDSITE]-=v;
 			}
 			
-			//½«²»ÔÚÖĞÏß
+			//å°†ä¸åœ¨ä¸­çº¿
 			switch(boardCol[oppKingSite]){
-				case 3: //Ïò×óÆ«
+				case 3: //å‘å·¦å
 					defensePartition[oppPlayTemp][LEFTSITE]-=1;
 					break;
-				case 5: //ÏòÓÒÆ«
+				case 5: //å‘å³å
 					defensePartition[oppPlayTemp][RIGHTSITE]-=1;
 					break;
 				case 4 :
-					//½«²»ÔÚµ×Ïß
+					//å°†ä¸åœ¨åº•çº¿
 					switch(boardRow[oppKingSite]){
-						case 1: //¸ß
+						case 1: //é«˜
 							defensePartition[oppPlayTemp][MIDSITE]-=1;
 							break;
-						case 2: //¸ß
+						case 2: //é«˜
 							defensePartition[oppPlayTemp][MIDSITE]-=1;
 							break;
-						case 8: //¸ß
+						case 8: //é«˜
 							defensePartition[oppPlayTemp][MIDSITE]-=1;
 							break;
-						case 7: //¸ß
+						case 7: //é«˜
 							defensePartition[oppPlayTemp][MIDSITE]-=1;
 							break;
 					}
@@ -174,7 +182,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 			
 			
 			
-			//ÇøÓò·ÖÊı¼ÆËã			
+			//åŒºåŸŸåˆ†æ•°è®¡ç®—			
 			if(attackPartition[i][LEFTSITE]>defensePartition[oppPlayTemp][LEFTSITE]){
 				score[i]+=(attackPartition[i][LEFTSITE]-defensePartition[oppPlayTemp][LEFTSITE])*30;
 			}
@@ -185,29 +193,29 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 				score[i]+=(attackPartition[i][MIDSITE]-defensePartition[oppPlayTemp][MIDSITE])*30;
 			}
 			 
-			//ÊıÁ¿
+			//æ•°é‡
 			int chariotNum = chessParam.getChessesNum(i,ChessConstant.CHARIOT);
 			int knightNum = chessParam.getChessesNum(i,ChessConstant.KNIGHT);  
-			//¶ÔÊÖ
+			//å¯¹æ‰‹
 			int opponentElephantNum = chessParam.getChessesNum(oppPlayTemp,ChessConstant.ELEPHANT);
 			int opponentGuardNum = chessParam.getChessesNum(oppPlayTemp,ChessConstant.GUARD); 
 			if(opponentElephantNum<2){
-				 if(opponentGuardNum>=2 && gunNum>0){//È±ÏàÊ¿È«ÅÂÅÚ
+				 if(opponentGuardNum>=2 && gunNum>0){//ç¼ºç›¸å£«å…¨æ€•ç‚®
 					 score[i]+=60;
 				 }
 			}
 			if(opponentGuardNum<2){
-				 if(knightNum>0){//È±Ê¿ÅÂÂí
+				 if(knightNum>0){//ç¼ºå£«æ€•é©¬
 					 score[i]+=60;
 				 }
 			}
-			if(chariotNum>0 ){ //¶à±øÖÖ¼Ó·Ö
+			if(chariotNum>0 ){ //å¤šå…µç§åŠ åˆ†
 				score[i]+=100;
 			}
-			if(knightNum>0){ //¶à±øÖÖ¼Ó·Ö
+			if(knightNum>0){ //å¤šå…µç§åŠ åˆ†
 				score[i]+=100;
 			}
-			if(gunNum>0){ //¶à±øÖÖ¼Ó·Ö
+			if(gunNum>0){ //å¤šå…µç§åŠ åˆ†
 				score[i]+=100;
 			}
 			 
@@ -216,7 +224,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 //		return score[play]-(score[1-play]+30);
 		return score[play]-(score[1-play]);
 	}
-	//Âí
+	//é©¬
 	public  final int blackKnightAttach[]={ 
 				 -60 ,-36 ,-20,-20,-20,-20,-20,-36,-60,
 				 -20 ,0   ,+15,+15,-70,+15,+15,0  ,-20,
@@ -230,7 +238,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 				 -20 ,+50,+80,+75,+40,+75,+80,+50,-20,
 				 -60 ,+10,+20,+20,-20,+20,+20,+10,-60
 		};
-	//ÅÚ
+	//ç‚®
 	public  final  int blackGunAttach[]={
 		 -30 ,0  ,+30,+40,+20,+40,+30,0  ,-30,
 		 -20 ,+30,+40,+50,+40,+50,+40,+30,-20, 
@@ -244,7 +252,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 		 -20 ,+20,+20,0  ,0  ,0  ,+20,+20,-20,
 		 -30 ,+40,+30,+10,-10,+10,+30,+40,-30
 	};
-	//³µ
+	//è½¦
 	public  final  int blackChariotAttach[]={ 
 			 -60,-10 , 0 ,+20,-10,+20, 0 ,-10,-60,
 			 -10,+10,+10,+30,-40,+30,+10,+10,-10,
@@ -258,7 +266,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 			 -20,+40,+40,+60,+90,+60,+40,+40,-20 ,
 			 -30,+20,+20,+20,+20,+20,+20,+20,-30
 	};
-	   //×ä
+	   //å’
 			public  final  int blackSoldierAttach[]={ 
 				
 				  0  ,0  ,0  ,0  ,0  ,0  ,0  ,0  ,0    
@@ -272,7 +280,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 				 ,+100,+150,+200,+250,+280,+250,+200,+150,+100
 				 ,+100,+100,+100,+100,+100,+100,+100,+100,+100
 		};
-			//Ïó
+			//è±¡
 		public  final  int ElephantAttch[]={ 
 				 
 				  0  ,0  ,10 ,0  ,0  ,0  ,10 ,0  ,0  
@@ -288,7 +296,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 				 ,0  ,0  ,10 ,0  ,0  ,0  ,10 ,0  ,0  
 				 
 		};	
-		//Ê¿
+		//å£«
 		public  final  int GuardAttach[]={  
 			 
 			  0  ,0  ,0  ,0  ,0  ,0 ,0  ,0  ,0  
@@ -303,7 +311,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 			 ,0  ,0  ,0  ,0  ,25 ,0  ,0  ,0  ,0  
 			 ,0  ,0  ,0  ,0  ,0  ,0  ,0  ,0  ,0    
 	};	
-		//Íõ
+		//ç‹
 		public  final  int kingAttach[]={ 
 			  0  ,0  ,0  ,10 ,20 ,10 ,0  ,0  ,0  
 			 ,0  ,0  ,0  ,-45,-50,-45,0  ,0  ,0  
@@ -337,7 +345,7 @@ public class EvaluateComputeMiddleGame extends EvaluateCompute {
 	};
 	
 	/*
-	 *¸½¼Ó·Ö 
+	 *é™„åŠ åˆ† 
 	 */ 
 	public  int chessAttachScore(int chessRole, int chessSite) {
 		return chessSiteScoreByRole[chessRole][chessSite];
